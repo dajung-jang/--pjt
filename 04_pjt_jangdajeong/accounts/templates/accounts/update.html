@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h1>회원 정보 수정</h1>
+
+  <form action="{% url "accounts:update" %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="mb-3">
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.errors }}
+      </div>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit">저장</button>
+  </form>
+
+  <hr>
+
+  <a href="{% url "accounts:change_password" %}">비밀번호 변경</a>
+
+  {% comment %} 회원 탈퇴 버튼 {% endcomment %}
+  <form action="{% url "accounts:delete" %}" method="POST" onsubmit="return confirm('정말 탈퇴하시겠어요? 복구할 수 없어요.')">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">회원탈퇴</button>
+  </form>
+
+{% endblock content %}

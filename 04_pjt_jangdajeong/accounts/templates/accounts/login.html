@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>로그인</h1>
+<form action="{% url "accounts:login" %}" method="POST">
+  {% csrf_token %}
+  {% for field in form  %}
+    <div class= "mb-3">
+      {{ field.label_tag }}
+      {{ field }}
+      {{ field.errors }}
+    </div>
+  {% endfor %}
+  {{ form.non_field_errors }}
+  <button typp='submit' class='btn btn-primary'>로그인</button>
+</form>
+
+{% endblock content %}

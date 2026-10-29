@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>회원가입</h1>
+<form action="{% url "accounts:signup" %}" method='POST'>
+  {% csrf_token %}
+  {% for field in form %}
+    <div class='mb-3'>
+      {{ field.label_tag }}
+      {{ field }}
+      {{ field.errors }}
+    </div>
+  {% endfor %}
+  <button type='submit' class='btn btn-primary'>회원가입</button>
+</form>
+{% endblock content %}
