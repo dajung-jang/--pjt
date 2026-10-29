@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ThRead - 채식주의자</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <style>
+      /* ===== 폰트 정의 ===== */
+      @font-face {
+        font-family: "SBAggro_L";
+        src: url("assets/fonts/SBAggroOTF_L.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "GmarketSansTTFMedium";
+        src: url("assets/fonts/GmarketSansTTFMedium.ttf") format("truetype");
+      }
+      @font-face {
+        font-family: "GmarketSansTTFBold";
+        src: url("assets/fonts/GmarketSansTTFBold.ttf") format("truetype");
+      }
+
+      /* ===== 공통 디자인 시스템 (06-main.html 과 동일) ===== */
+      :root {
+        --thread-red: #fe4a51;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #111;
+        color: #fff;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+      .th {
+        color: #fff;
+      }
+      .read {
+        color: var(--thread-red);
+      }
+
+      /* ===== Navbar (기존 네비게이션 유지) ===== */
+      .navbar {
+        z-index: 1000;
+        background-color: transparent;
+      }
+      .navbar-brand {
+        font-family: "GmarketSansTTFMedium";
+        font-weight: 700;
+      }
+      .navbar .nav-link {
+        font-family: "SBAggro_L";
+        color: #fff;
+      }
+      .navbar .nav-link:hover,
+      .navbar .nav-link:focus {
+        color: var(--thread-red);
+      }
+
+      /* ===== Hero: 전체 Viewport 를 덮는 도서 커버 배경 ===== */
+      .detail-hero {
+        position: relative;
+        min-height: 100vh;
+        background: url("assets/book_detail/book_cover.jpg") center / cover no-repeat;
+      }
+      /* 좌측은 검정에 가깝게, 우측은 투명에 가깝게 */
+      .detail-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.92) 0%,
+          rgba(0, 0, 0, 0.7) 40%,
+          rgba(0, 0, 0, 0.1) 100%
+        );
+      }
+      .detail-content {
+        position: relative;
+        z-index: 2;
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+      }
+
+      /* ===== 작가 및 도서 소개 (왼쪽 컬럼) ===== */
+      .book-title {
+        font-family: "GmarketSansTTFBold", "GmarketSansTTFMedium";
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+      }
+      .btn-archive {
+        color: var(--thread-red);
+        border: 1px solid var(--thread-red);
+        background-color: transparent;
+      }
+      .btn-archive:hover {
+        color: #fff;
+        background-color: var(--thread-red);
+      }
+      .rank-badge {
+        font-size: 0.85rem;
+        color: #ddd;
+      }
+      .book-desc {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: #ddd;
+      }
+      .author-photo {
+        width: 110px;
+        height: 110px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3.5rem;
+        color: #888;
+      }
+      .author-name {
+        font-family: "GmarketSansTTFMedium";
+        font-size: 1.1rem;
+      }
+      .author-desc {
+        font-size: 0.8rem;
+        line-height: 1.7;
+        color: #bbb;
+      }
+
+      /* ===== 세부 정보 탭 (오른쪽 컬럼) ===== */
+      .detail-tabs {
+        border-bottom-color: rgba(255, 255, 255, 0.3);
+      }
+      .detail-tabs .nav-link {
+        color: #fff;
+        font-size: 0.9rem;
+        border: 1px solid transparent;
+      }
+      .detail-tabs .nav-link:hover {
+        color: var(--thread-red);
+        border-color: transparent;
+      }
+      .detail-tabs .nav-link.active {
+        color: var(--thread-red);
+        background-color: transparent;
+        border-color: var(--thread-red);
+        border-bottom-color: transparent;
+      }
+      .map-wrapper iframe {
+        width: 100%;
+        height: 350px;
+        border: 0;
+        border-radius: 0 0 0.5rem 0.5rem;
+      }
+      .thread-list .list-group-item {
+        background-color: transparent;
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.15);
+        font-size: 0.9rem;
+        padding: 0.9rem 0.5rem;
+      }
+      .thread-list .list-group-item:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+      .thread-list .bi-heart-fill {
+        color: #fff;
+      }
+      .detail-pagination .page-item .page-link {
+        border: none;
+        background-color: transparent;
+        color: #fff;
+        box-shadow: none;
+      }
+      .detail-pagination .page-item.active .page-link {
+        color: var(--thread-red);
+        font-weight: 700;
+      }
+      .write-link {
+        color: #fff;
+        font-size: 0.85rem;
+      }
+      .write-link:hover {
+        color: var(--thread-red);
+      }
+
+      /* ===== [F308] Logout Modal ===== */
+      .logout-modal .modal-content {
+        color: #333;
+        border: none;
+        border-radius: 0.75rem;
+      }
+      .logout-modal .modal-header {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .btn-thread-outline {
+        color: var(--thread-red);
+        border: 1px solid var(--thread-red);
+        background-color: #fff;
+      }
+      .btn-thread-outline:hover {
+        color: #fff;
+        background-color: var(--thread-red);
+      }
+      .btn-thread {
+        color: #fff;
+        background-color: var(--thread-red);
+        border: 1px solid var(--thread-red);
+      }
+      .btn-thread:hover {
+        color: #fff;
+        background-color: #e03b42;
+      }
+
+      @media (max-width: 575.98px) {
+        .book-title {
+          font-size: 2.8rem;
+        }
+        .detail-content {
+          padding-top: 5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ================= Navbar (06-main.html 과 동일) ================= -->
+    <nav class="navbar navbar-expand-sm position-absolute top-0 start-0 w-100" data-bs-theme="dark">
+      <div class="container-fluid px-4">
+        <a class="navbar-brand" href="06-main.html"><span class="th">Th</span><span class="read">Read</span></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto text-end">
+            <li class="nav-item"><a class="nav-link" href="06-main.html#thread">쓰레드</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">도서 검색</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">마이 페이지</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ================= Hero + 상세 정보 ================= -->
+    <section class="detail-hero">
+      <div class="container detail-content">
+        <div class="row g-5 align-items-start">
+          <!-- 왼쪽 컬럼: 작가 및 도서 소개 -->
+          <div class="col-12 col-lg-6">
+            <h1 class="book-title">채식주의자</h1>
+
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <button type="button" class="btn btn-sm btn-archive px-3">
+                <i class="bi bi-archive"></i> 담기
+              </button>
+              <span class="rank-badge">인기 도서 Top 10</span>
+            </div>
+
+            <p class="book-desc">
+              노벨 문학상, 인터내셔널 부커상, 산클레멘테 문학상 수상작<br />
+              전세계가 주목한 한강의 역작을 다시 만난다
+            </p>
+            <p class="book-desc mb-5">
+              2016년 인터내셔널 부커상을 수상하며 한국문학의 입지를 확장시킨 한강의 장편소설
+              『채식주의자』를 15년 만에 새로운 장정으로 선보인다. 어느 날 갑자기 육식을 거부하게 된
+              영혜와, 그녀를 바라보는 세 인물의 시선을 통해 인간 내면의 폭력과 욕망을 섬세하게 그려낸다.
+            </p>
+
+            <!-- 작가 소개 -->
+            <div class="d-flex align-items-center gap-4">
+              <div class="author-photo" aria-label="작가 사진">
+                <i class="bi bi-person-fill"></i>
+              </div>
+              <div>
+                <h2 class="author-name">한 강</h2>
+                <p class="author-desc mb-0">
+                  1970년 늦은 11월에 태어나다. 연세대 국문과를 졸업한 뒤 1993년 『문학과사회』에 시를
+                  발표하고, 이듬해 서울신문 신춘문예에 단편소설 「붉은 닻」이 당선되면서 소설 창작을
+                  시작했다. 장편소설 『검은 사슴』, 『채식주의자』, 『바람이 분다, 가라』, 『희랍어
+                  시간』, 『소년이 온다』, 『작별하지 않는다』 등을 펴냈다.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 오른쪽 컬럼: 세부 정보 탭 -->
+          <div class="col-12 col-lg-6">
+            <ul class="nav nav-tabs detail-tabs" id="detailTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="library-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#library-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="library-pane"
+                  aria-selected="true"
+                >
+                  대여 가능 도서관
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="thread-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#thread-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="thread-pane"
+                  aria-selected="false"
+                >
+                  쓰레드
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="detailTabContent">
+              <!-- 대여 가능 도서관 탭: Google Map iframe -->
+              <div
+                class="tab-pane fade show active map-wrapper"
+                id="library-pane"
+                role="tabpanel"
+                aria-labelledby="library-tab"
+                tabindex="0"
+              >
+                <iframe
+                  src="https://maps.google.com/maps?q=National%20Assembly%20Library%20Seoul&z=16&output=embed"
+                  title="대여 가능 도서관 - 국회도서관"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  allowfullscreen
+                ></iframe>
+              </div>
+
+              <!-- 쓰레드 탭: 관련 쓰레드 목록 -->
+              <div
+                class="tab-pane fade"
+                id="thread-pane"
+                role="tabpanel"
+                aria-labelledby="thread-tab"
+                tabindex="0"
+              >
+                <ul class="list-group list-group-flush thread-list">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>쓰레드 제목 1 | userA</span>
+                    <span><i class="bi bi-heart-fill"></i> 10</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>쓰레드 제목 2 | userB</span>
+                    <span><i class="bi bi-heart-fill"></i> 5</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>쓰레드 제목 3 | userC</span>
+                    <span><i class="bi bi-heart-fill"></i> 8</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>쓰레드 제목 4 | userD</span>
+                    <span><i class="bi bi-heart-fill"></i> 3</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>쓰레드 제목 5 | userE</span>
+                    <span><i class="bi bi-heart-fill"></i> 12</span>
+                  </li>
+                </ul>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                  <nav aria-label="Thread page navigation">
+                    <ul class="pagination pagination-sm detail-pagination mb-0">
+                      <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    </ul>
+                  </nav>
+                  <a href="#" class="write-link"><i class="bi bi-pencil-square"></i> 쓰레드 작성</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Logout Modal (06-main.html 과 동일) ================= -->
+    <!-- 기본 backdrop 설정으로 Modal 영역 밖을 클릭하면 닫힘 -->
+    <div
+      class="modal fade logout-modal"
+      id="logoutModal"
+      tabindex="-1"
+      aria-labelledby="logoutModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-6 visually-hidden" id="logoutModalLabel">로그아웃 확인</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center pt-2 pb-4">
+            <p class="my-4">정말 로그아웃 하시겠습니까?</p>
+            <div class="d-flex justify-content-center gap-3">
+              <button type="button" class="btn btn-sm btn-thread-outline px-4" data-bs-dismiss="modal">
+                취소
+              </button>
+              <button type="button" class="btn btn-sm btn-thread px-4" data-bs-dismiss="modal">
+                로그아웃
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

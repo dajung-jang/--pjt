@@ -1,0 +1,92 @@
+[
+  {
+    "doc_id": "wiki_surfing",
+    "title": "서핑",
+    "url": "https://ko.wikipedia.org/wiki/%EC%84%9C%ED%95%91",
+    "kind": "개념 문서",
+    "item_ids": [],
+    "checked": true,
+    "note": "서핑이 파도나 바람을 이용해 이동하는 수상 스포츠라는 설명과, 롱보드·숏보드·스탠드업 패들보드 구분이 있다. 한국 스팟, 초보자 난이도, 안전 수칙에 관한 내용은 없다."
+  },
+  {
+    "doc_id": "wiki_surfing_history",
+    "title": "서핑의 역사",
+    "url": "https://ko.wikipedia.org/wiki/%EC%84%9C%ED%95%91%EC%9D%98_%EC%97%AD%EC%82%AC",
+    "kind": "개념 문서",
+    "item_ids": [],
+    "checked": false,
+    "note": "검색 결과에서 제목만 확인했다. 내용은 직접 확인이 필요하다."
+  },
+  {
+    "doc_id": "wiki_surfboard",
+    "title": "서프보드",
+    "url": "https://ko.wikipedia.org/wiki/%EC%84%9C%ED%94%84%EB%B3%B4%EB%93%9C",
+    "kind": "개념 문서",
+    "item_ids": [],
+    "checked": false,
+    "note": "검색 결과에서 제목만 확인했다. 내용은 직접 확인이 필요하다."
+  },
+  {
+    "doc_id": "wiki_wave",
+    "title": "파도",
+    "url": "https://ko.wikipedia.org/wiki/%ED%8C%8C%EB%8F%84",
+    "kind": "개념 문서",
+    "item_ids": [],
+    "checked": true,
+    "note": "풍파(주기 약 2~8초)와 물결(주기 약 5~15초)의 구분, 바람이 불어오는 거리가 길수록 풍파가 커진다는 설명, 겨울 북서 계절풍으로 동해 파도가 거세진다는 설명, 해안에서 파도가 부서지는 모습과 이안류의 관계가 있다. 파고의 정의나 서핑 적합 기준은 없다."
+  },
+  {
+    "doc_id": "wiki_rip_current",
+    "title": "이안류",
+    "url": "https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%95%88%EB%A5%98",
+    "kind": "개념 문서",
+    "item_ids": [],
+    "checked": true,
+    "note": "해안에서 바다 쪽으로 흐르는 좁고 빠른 물살이라는 정의, 완만한 경사와 모래톱이 많은 해변에서 잘 생긴다는 원인, 해운대해수욕장 구조 건수(2008년 150명, 2009년 106명), 발버둥치지 말고 흐름과 수직 방향(옆쪽)이나 45도 방향으로 헤엄친다는 대처법이 있다. 발생 시기와 식별법은 없다."
+  },
+  {
+    "doc_id": "wiki_haeundae_beach",
+    "title": "해운대해수욕장",
+    "url": "https://ko.wikipedia.org/wiki/%ED%95%B4%EC%9A%B4%EB%8C%80%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5",
+    "kind": "해변 문서",
+    "item_ids": ["beach_150"],
+    "checked": false,
+    "note": "이안류 검색 결과에 함께 나온 문서다. 내용은 직접 확인이 필요하다."
+  },
+  {
+    "doc_id": "wiki_songjeong_busan",
+    "title": "송정해수욕장 (부산)",
+    "url": "https://ko.wikipedia.org/wiki/%EC%86%A1%EC%A0%95%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5_(%EB%B6%80%EC%82%B0)",
+    "kind": "해변 문서",
+    "item_ids": ["spot_003"],
+    "checked": true,
+    "note": "부산 해운대구 송정동, 동해안에서 가장 남쪽 해수욕장, 모래사장 길이 약 1.2km·폭 57m·면적 62,150㎡, 주변 해수욕장보다 조용하고 수질이 깨끗하다는 소개가 있다. 서핑, 파도, 안전 정보는 없다. 공공데이터 CSV의 규모(폭 45m, 54,000㎡)와 수치가 달라 기준 시점 차이로 보인다."
+  },
+  {
+    "doc_id": "wiki_beach_list_by_region",
+    "title": "대한민국의 해수욕장 목록 (행정구역별)",
+    "url": "https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%ED%95%B4%EC%88%98%EC%9A%95%EC%9E%A5_%EB%AA%A9%EB%A1%9D_(%ED%96%89%EC%A0%95%EA%B5%AC%EC%97%AD%EB%B3%84)",
+    "kind": "목록 문서",
+    "item_ids": ["spot_001", "spot_002", "spot_004"],
+    "checked": true,
+    "note": "죽도(양양군 현남면 두창시변리), 인구(양양군 현남면 인구리), 중문색달(서귀포시 색달동)의 위치가 나온다. 문서 전체에서 서핑은 언급되지 않는다."
+  },
+  {
+    "doc_id": "wiki_yangyang",
+    "title": "양양군",
+    "url": "https://ko.wikipedia.org/wiki/%EC%96%91%EC%96%91%EA%B5%B0",
+    "kind": "지역 문서",
+    "item_ids": ["spot_001", "spot_002"],
+    "checked": false,
+    "note": "죽도·인구는 해변 자체를 다룬 위키 문서가 검색에서 보이지 않아 지역 문서를 대체 후보로 올렸다. 서핑 관련 내용이 있는지는 직접 확인이 필요하다."
+  },
+  {
+    "doc_id": "wiki_jungmun",
+    "title": "중문동",
+    "url": "https://ko.wikipedia.org/wiki/%EC%A4%91%EB%AC%B8%EB%8F%99",
+    "kind": "지역 문서",
+    "item_ids": ["spot_004"],
+    "checked": false,
+    "note": "중문색달은 해변 자체를 다룬 위키 문서가 검색에서 보이지 않아 지역 문서를 대체 후보로 올렸다. 서핑 관련 내용이 있는지는 직접 확인이 필요하다."
+  }
+]
