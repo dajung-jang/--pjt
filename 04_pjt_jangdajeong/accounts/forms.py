@@ -7,11 +7,31 @@ from django.contrib.auth.forms import (
     UserCreationForm,
 )
 
+GENDER_CHOICES = [
+    ('소설/시/희곡', '소설/시/희곡'),
+    ('경제/경영', '경제/경영'),
+    ('자기계발', '자기계발'),
+    ('인문/교양', '인문/교양'),
+    ('과학', '과학'),
+    ('취미/실용', '취미/실용'),
+    ('어린이/청소년', '어린이/청소년'),
+]
+
 # 회원 가입 폼
 class CustomUserCreationForm(UserCreationForm):
+    interested_genres = forms.MultipleChoiceField(
+        choices=GENDER_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label='관심 장르',
+    )
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['username', 'last_name', 'first_name', 'email']
+        fields = [
+            'username', 'last_name', 'first_name', 'email',
+            'gender', 'age', 'weekly_reading_hours', 'yearly_reading_count', 'interested_genres',
+            ]
         widgets = {
             'username': forms.TextInput(
                 attrs = {'placeholder': '아이디'}
@@ -31,14 +51,28 @@ class CustomUserCreationForm(UserCreationForm):
                 'last_name': '성',
                 'first_name': '이름',
                 'email': '이메일',
+                'gender': '성별',
+                'age': '나이',
+                'weekly_reading_hours': '주간 평균 독서 시간(시간)',
+                'yearly_reading_count': '연간 독서량(권)',
             }
 
-    field_order = ['username', 'password1', 'password2', 'last_name', 'first_name', 'email']
+    field_order = [
+    'username', 'password1', 'password2', 'last_name', 'first_name', 'email',
+    'gender', 'age', 'weekly_reading_hours', 'yearly_reading_count',
+    'interested_genres',
+]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+        for name, field in self.fields.items():
+            if name == 'interested_genres':
+                continue
+            elif name == 'gender':
+                field.widget.attrs['class'] = 'form-select'
+            else:
+                field.widget.attrs['class'] = 'form-control'
+
         self.fields['password1'].label = '비밀번호'
         self.fields['password1'].widget.attrs['placeholder'] = '비밀번호'
         self.fields['password2'].label = '비밀번호 확인'
@@ -59,9 +93,20 @@ class CustomAuthenticationForm(AuthenticationForm):
 class CustomUserChangeForm(UserChangeForm):
     password = None
 
+    interested_genres = forms.MultipleChoiceField(
+        choices=GENDER_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label='관심 장르',
+    )
+
     class Meta(UserChangeForm.Meta):
         model = get_user_model()
-        fields = ['last_name', 'first_name', 'email']
+        fields = [
+            'last_name', 'first_name', 'email',
+            'gender', 'age', 'weekly_reading_hours', 'yearly_reading_count',
+            'interested_genres',
+        ]
         widgets = {
             'last_name': forms.TextInput(attrs={'placeholder': '성'}),
             'first_name': forms.TextInput(attrs={'placeholder': '이름'}),
@@ -71,12 +116,21 @@ class CustomUserChangeForm(UserChangeForm):
             'last_name': '성',
             'first_name': '이름',
             'email': '이메일',
+            'gender': '성별',
+            'age': '나이',
+            'weekly_reading_hours': '주간 평균 독서 시간(시간)',
+            'yearly_reading_count': '연간 독서량(권)',
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'form-control'
+        for name, field in self.fields.items():
+            if name == 'interested_genres':
+                continue
+            elif name == 'gender':
+                field.widget.attrs['class'] = 'form-select'
+            else:
+                field.widget.attrs['class'] = 'form-control'
 
 # 비밀번호 변경
 class CustomPasswordChangeForm(PasswordChangeForm):

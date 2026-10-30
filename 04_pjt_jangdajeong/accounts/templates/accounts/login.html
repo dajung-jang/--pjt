@@ -1,18 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>로그인</h1>
-<form action="{% url "accounts:login" %}" method="POST">
-  {% csrf_token %}
-  {% for field in form  %}
-    <div class= "mb-3">
-      {{ field.label_tag }}
-      {{ field }}
-      {{ field.errors }}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="card">
+          <div class="card-body p-4 p-md-5">
+            <h2 class="text-center mb-4">로그인</h2>
+            <form action="{% url 'accounts:login' %}" method="POST">
+              {% csrf_token %}
+              {% for field in form %}
+                <div class="mb-3">
+                  {{ field.label_tag }}
+                  {{ field }}
+                  {{ field.errors }}
+                </div>
+              {% endfor %}
+              {{ form.non_field_errors }}
+              <button type="submit" class="btn btn-primary w-100 mt-3">로그인</button>
+            </form>
+            <p class="text-center text-muted small mt-4 mb-0">
+              계정이 없으신가요? <a href="{% url 'accounts:signup' %}">회원가입</a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-  {% endfor %}
-  {{ form.non_field_errors }}
-  <button typp='submit' class='btn btn-primary'>로그인</button>
-</form>
-
+  </div>
 {% endblock content %}

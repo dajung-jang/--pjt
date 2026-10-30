@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        <div class="card">
+          <div class="card-body p-4 p-md-5">
+            <h2 class="mb-4">{{ person.username }} 님의 프로필</h2>
+
+            <dl class="row mb-0">
+              <dt class = "col-sm-4">아이디</dt>
+              <dd class = "col-sm-8">{{ person.username }}</dd>
+
+              <dt class = "col-sm-4">이메일</dt>
+              <dd class = "col-sm-8">{{ person.email|default:"-" }}</dd>
+
+              <dt class = "col-sm-4">이름</dt>
+              <dd class = "col-sm-8">{{ person.last_name }}{{person.first_name }}</dd>
+
+              <dt class = "col-sm-4">성별</dt>
+              <dd class = "col-sm-8">{{ person.get_gender_display|default:"-" }}</dd>
+
+              <dt class = "col-sm-4">나이</dt>
+              <dd class = "col-sm-8">{{ person.age|default:"-" }}</dd>
+
+              <dt class = "col-sm-4">주간 평균 독서 시간</dt>
+              <dd class = "col-sm-8">{{ person.weekly_reading_hours|default:"-" }}시간</dd>
+
+              <dt class = "col-sm-4">연간 독서량</dt>
+              <dd class = "col-sm-8">{{ person.yearly_reading_count|default:"-" }}권</dd>
+
+              <dt class = "col-sm-4">관심 장르</dt>
+              <dd class = "col-sm-8">
+                {% for genre in genres %}
+                  <span class="badge text-bg-secondary rounded-pill">{{ genre }}</span>
+                {% empty %}
+                  -
+                {% endfor %}
+              </dd>
+            </dl>
+
+            <hr class="my-4">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <a href="{% url "books:index" %}"  class="btn btn-outline-dark rounded-pill">← BACK</a>
+
+              {% if user == person %}
+                <div class="d-flex gap-2">
+                  <a href="{% url 'accounts:update' %}" class="btn btn-secondary rounded-pill">회원정보 수정</a>
+                  <form action="{% url "accounts:delete" %}" method="POST" onsubmit="return confirm('정말 탈퇴하시겠어요? 복구할 수 없어요.')">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger rounded-pill">회원탈퇴</button>
+                  </form>
+                </div>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

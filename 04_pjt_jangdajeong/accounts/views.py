@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_http_methods, require_POST, require_safe
 from .forms import (
     CustomUserCreationForm, 
     CustomAuthenticationForm, 
@@ -21,7 +22,9 @@ def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.interested_genres = ','.join(form.cleaned_data['interested_genres'])
+            user.save()
             auth_login(request, user)
             return redirect('books:index')
 
@@ -72,10 +75,14 @@ def update(request):
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, instance = request.user)
         if form.is_valid():
-            form.save()
-            return redirect('books:index')
+            user = form.save(commit=False)
+            user.interested_genres = ','.join(form.cleaned_data['interested_genres'])
+            user.save()
+            return redirect('accounts:profile', request.user.username)
     else:
-        form = CustomUserChangeForm(instance = request.user)
+        genres = request.user.interested_genres
+        initial = {'interested_genres': genres.split(',') if genres else []}
+        form = CustomUserChangeForm(instance = request.user, initial=initial)
 
     context = {'form': form}
     return render(request, 'accounts/update.html', context)
@@ -95,3 +102,12 @@ def change_password(request):
 
     context = {'form': form}
     return render(request, 'accounts/change_password.html', context)
+
+# 프로필 페이지(마이페이지)
+@login_required
+@require_safe
+def profile(request, username):
+    person = get_object_or_404(get_user_model(), username=username)
+    genres = person.interested_genres.split(',') if person.interested_genres else []
+    context = {'person': person, 'genres': genres}
+    return render(request, 'accounts/profile.html', context)

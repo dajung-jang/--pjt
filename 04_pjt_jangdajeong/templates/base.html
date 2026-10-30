@@ -5,7 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Book App</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #f5f1e8;
+      --accent: #e0585b;
+      --ink: #2a2d3a;
+    }
+
+    body { 
+      background-color: var(--bg-cream); 
+      color: var(--ink); 
+    }
+
+    h1, h2, h3, h4, .navbar-brand { font-family: 'Noto Serif KR', serif; }
+
+    .navbar { background-color: transparent !important; }
+
+    .btn-primary { 
+      background-color: var(--ink); 
+      border-color: var(--ink); 
+      border-radius: 50rem; 
+    }
+
+    .btn-primary:hover { 
+      background-color: var(--accent); 
+      border-color: var(--accent); 
+    }
+
+    .card { 
+      border: 0; 
+      border-radius: 1rem; 
+      box-shadow: 0 4px 14px rgba(0,0,0,.08); 
+    }
+
+    .cover {
+      height: 140px;
+      border-radius: 1rem 1rem 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+      color: #fff;
+      font-family: 'Noto Serif KR', serif;
+      font-weight: 700;
+    }
+    .cover-a { background: #b5483f; }
+    .cover-b { background: #2f4858; }
+    .cover-c { background: #6b7a4f; }
+    .cover-d { background: #8a6f4d; }
+    .book-card { transition: transform .2s; }
+    .book-card:hover { transform: translateY(-4px); }
+    .rank { 
+      color: var(--accent); 
+      font-weight: 700; 
+    }
+    .errorlist {
+      list-style: none;
+      padding: 0;
+      margin: .25rem 0 0;
+      color: var(--accent);
+      font-size: .875rem;
+    }
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 .2rem rgba(224, 88, 91, .15);
+    }
+
+    #id_interested_genres {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem 1.25rem;
+    }
+    #id_interested_genres input[type="checkbox"] {
+      accent-color: var(--accent);
+      margin-right: .35rem;
+    }
+  </style>
 </head>
+
 <body>
   <nav class = "navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
@@ -22,7 +102,7 @@
               <a href="{% url "books:create" %}" class="nav-link">CREATE</a>
             </li>
             <li class="nav-item">
-              <a href="{% url "accounts:update" %}" class="nav-link">MY PAGE</a>
+              <a href="{% url "accounts:profile" user.username %}" class="nav-link">MY PAGE</a>
             </li>
             <li class="nav-item">
               <form action="{% url "accounts:logout" %}" method="POST" class="d-inline">
@@ -42,10 +122,10 @@
       </div>
     </div>
   </nav>
-  <div class='container mt-5'>
+  {% comment %} <div class='container mt-5'> {% endcomment %}
     {% block content %}
     {% endblock content %}
-  </div>
+  {% comment %} </div> {% endcomment %}
   {% comment %} 부트스트랩 {% endcomment %}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

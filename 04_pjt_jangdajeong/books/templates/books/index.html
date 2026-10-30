@@ -1,4 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
+  <div class="container py-4">
 
+    <section class="py-5">
+      {% if user.is_authenticated %}
+        <h1 class="display-5 fw-bold">{{ user.username }}님,<br>오늘도 즐거운 독서!</h1>
+        <p class="lead mt-3">읽은 책을 기록하고, 다른 사람의 감상을 만나보세요.</p>
+        <a href="{% url 'books:create' %}" class="btn btn-primary btn-lg mt-2">도서 등록하기</a>
+      {% else %}
+        <h1 class="display-5 fw-bold">책으로 이어지는<br>우리의 이야기</h1>
+        <p class="lead mt-3">로그인하고 읽은 책을 기록해 보세요.</p>
+        <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg mt-2">시작하기</a>
+      {% endif %}
+    </section>
+
+    <h2 class="h3 mb-4">전체 도서</h2>
+    <div class="row g-4">
+      {% for book in books %}
+        <div class="col-sm-6 col-lg-4">
+          <div class="card book-card h-100">
+            <div class="cover {% cycle 'cover-a' 'cover-b' 'cover-c' 'cover-d' %}">
+              {{ book.title|truncatechars:20 }}
+            </div>
+            <div class="card-body d-flex flex-column">
+              <p class="text-muted small mb-1">{{ book.author }}</p>
+              <p class="rank mb-2">★ {{ book.customer_review_rank }} / 10</p>
+              <p class="card-text">{{ book.description|truncatechars:80 }}</p>
+              <a href="{% url 'books:detail' book.pk %}" class="btn btn-primary mt-auto">Detail</a>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>등록된 도서가 없습니다.</p>
+      {% endfor %}
+    </div>
+
+  </div>
 {% endblock content %}
