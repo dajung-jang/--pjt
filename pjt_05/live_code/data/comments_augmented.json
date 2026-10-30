@@ -1,0 +1,79 @@
+{
+  "company": "삼성전자",
+  "collected_at": "2026-10-30T10:25:03",
+  "count": 16,
+  "records": [
+    {
+      "text": "잘못된 판단으로 희망고문 받고있음",
+      "source": "original"
+    },
+    {
+      "text": "검은 월화수목금요일",
+      "source": "original"
+    },
+    {
+      "text": "진짜그냥망한주식같음",
+      "source": "original"
+    },
+    {
+      "text": "3만원먹으려다 30만원 잃었네",
+      "source": "original"
+    },
+    {
+      "text": "걍 단타 놀이터네",
+      "source": "original"
+    },
+    {
+      "text": "내가사면 더 내린다",
+      "source": "original"
+    },
+    {
+      "text": "지금 주주환원이 문제가 아니라 어제 미장 ai관련주 다 개박살났어요 기본 10퍼씩 처박았는데",
+      "source": "original"
+    },
+    {
+      "text": "국장 절대 들어가지마라 최근 23주 내내 연속하락이였고 2일정도 딱 겨우 상승하나 십더니 2일동안 상승한거 오늘 단 하루만에 다뺀다 국장 투자는 망한다",
+      "source": "original"
+    },
+    {
+      "text": "잘못된 판단 탓에 계속 허무한 기대에 시달리고 있음",
+      "source": "augmented",
+      "origin_index": 0
+    },
+    {
+      "text": "월요일부터 금요일까지 주중 매일이 불운하다",
+      "source": "augmented",
+      "origin_index": 1
+    },
+    {
+      "text": "그 주식은 정말 망해 보일 만큼 형편없다",
+      "source": "augmented",
+      "origin_index": 2
+    },
+    {
+      "text": "3만원의 이익을 노렸는데 30만원을 잃어버렸다",
+      "source": "augmented",
+      "origin_index": 3
+    },
+    {
+      "text": "그저 단타를 위한 놀이터일 뿐이다",
+      "source": "augmented",
+      "origin_index": 4
+    },
+    {
+      "text": "내가 매수하면 가격이 더 떨어진다",
+      "source": "augmented",
+      "origin_index": 5
+    },
+    {
+      "text": "지금은 주주환원 문제가 아니라 어제 미국 증시의 AI 관련 주들이 전반적으로 크게 하락했고, 대략 10%대의 낙폭이 나타났다",
+      "source": "augmented",
+      "origin_index": 6
+    },
+    {
+      "text": "국장에는 절대로 투자하지 마라. 최근 23주 연속 하락했고 며칠 간 소폭 반등했지만 오늘의 상승분은 단 하루 만에 전부 사라졌다. 국장 투자는 망한다",
+      "source": "augmented",
+      "origin_index": 7
+    }
+  ]
+}

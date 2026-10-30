@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>댓글 증강 시스템</title>
+  <style>
+    body { font-family: sans-serif; background: #f4f7fb; margin: 0; padding: 24px; }
+    h1 { text-align: center; color: #1b64da; }
+    .box { max-width: 1200px; margin: 0 auto; }
+    form { background: #fff; padding: 16px; border-radius: 12px; text-align: center; }
+    input[type=text] { padding: 8px; width: 220px; }
+    button { padding: 8px 16px; background: #1b64da; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
+    .hint { color: #888; font-size: 12px; margin-top: 8px; }
+    .status { text-align: center; color: #1b64da; margin-top: 12px; display: none; }
+    .error { background: #ffecec; color: #c0392b; padding: 14px; border-radius: 8px; text-align: center; margin-top: 16px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 16px; }
+    .col { background: #fff; border-radius: 12px; padding: 12px; }
+    .col h3 { text-align: center; color: #1b64da; font-size: 15px; }
+    .col ol { height: 360px; overflow-y: auto; padding-left: 22px; font-size: 13px; }
+    .col li { margin-bottom: 8px; }
+    .summary { background: #fff; border-radius: 12px; padding: 16px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+<div class="box">
+  <h1>💭 댓글 증강 시스템</h1>
+
+  <form method="get" action="{% url 'comments:company' %}" id="search-form">
+    회사 이름 입력:
+    <input type="text" name="company_name" placeholder="예: 삼성전자" value="{{ company_name|default:'' }}">
+    <button type="submit">검색</button>
+    <div class="hint">회사명 일부만 입력해도 됩니다. (가장 상단의 검색 결과를 자동 선택)</div>
+  </form>
+  <div class="status" id="status">댓글 수집 중...</div>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  {% if stock_name %}
+    <h2 style="text-align:center">{{ stock_name }} 댓글 분석 결과</h2>
+    <div class="grid">
+      <div class="col">
+        <h3>원본 데이터 ({{ raw|length }}개)</h3>
+        <ol>{% for c in raw %}<li>{{ c }}</li>{% endfor %}</ol>
+      </div>
+      <div class="col">
+        <h3>전처리 후 ({{ cleaned|length }}개) - (길이: {{ min_len }} ~ {{ max_len }})</h3>
+        <ol>{% for c in cleaned %}<li>{{ c }}</li>{% endfor %}</ol>
+      </div>
+      <div class="col">
+        <h3>증강 데이터 ({{ augmented|length }}개)</h3>
+        <ol>{% for c in augmented %}<li>{{ c }}</li>{% endfor %}</ol>
+      </div>
+      <div class="col">
+        <h3>최종 결과 ({{ final|length }}개)</h3>
+        <ol>{% for c in final %}<li>{{ c }}</li>{% endfor %}</ol>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>📝 댓글 요약</h3>
+      <p>{{ summary }}</p>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  document.getElementById('search-form').addEventListener('submit', function (e) {
+    var v = this.company_name.value.trim();
+    if (!v) { e.preventDefault(); return; }
+    document.getElementById('status').style.display = 'block';
+  });
+</script>
+</body>
+</html>
